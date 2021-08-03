@@ -2,8 +2,8 @@ import React from "react"
 
 const Header = () => {
     return (
-        <div className="header">
-            <h1>Lista To Does</h1>
+        <div className="title">
+            <h1>Lista de Tareas por Hacer</h1>
         </div>
     )
 }
