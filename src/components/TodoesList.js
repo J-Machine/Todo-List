@@ -1,19 +1,25 @@
 import React from 'react'
 
-const TodoesList = ({todoes, setTodoes}) => {
+const TodoesList = ({todoes, setTodoes, setEditTodo}) => {
     const handleDelete = ({id}) => {
         setTodoes(todoes.filter((todo)=>todo.id !== id));
     };
-const handleComplete = (todo) => {
-    setTodoes(
-        todoes.map((item) => {
-            if (item.id === todo.id) {
-                return {...item, completed: !item.completed}
-            }
-            return item;
-        })
-    );
-};
+
+    const handleEdit = ({id}) => {
+        const findTodo = todoes.find((todo) => todo.id === id);
+        setEditTodo(findTodo);
+    };
+
+    const handleComplete = (todo) => {
+        setTodoes(
+            todoes.map((item) => {
+                if (item.id === todo.id) {
+                    return {...item, completed: !item.completed}
+                }
+                return item;
+            })
+        );
+    };
 
     return (
         <div>
@@ -22,7 +28,7 @@ const handleComplete = (todo) => {
                     <input
                         type="text"
                         value={todo.title}
-                        className="list"
+                        className={`list ${todo.completed ? "complete" : ""}`}
                         onChange={(event) => event.preventDefault()}
                     />
                     {/* Botones para las acciones */}
@@ -30,7 +36,7 @@ const handleComplete = (todo) => {
                         <button className="button-complete task-button" onClick={() => handleComplete(todo)}>
                             <i className="fa fa-check-circle"></i>
                         </button>
-                        <button className="button-edit task-button">
+                        <button className="button-edit task-button" onClick={() => handleEdit(todo)}>
                             <i className="fa fa-edit"></i>
                         </button>
                         <button className="button-delete task-button" onClick={() => handleDelete(todo)}>
